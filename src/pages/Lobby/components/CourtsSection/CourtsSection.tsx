@@ -2,7 +2,8 @@ import { Card } from '@shared/components/Card';
 import { Court } from '@shared/components/Court';
 import { Typography } from '@shared/components/Typography';
 
-import { Logo, TitleWrapper, EmptyCourtImage, Content } from './styles';
+import { EmptyCourt } from './EmptyCourt';
+import { Logo, TitleWrapper, Content } from './styles';
 import { CourtsSectionProps } from './types';
 
 export function CourtsSection({ courts }: CourtsSectionProps) {
@@ -23,20 +24,9 @@ export function CourtsSection({ courts }: CourtsSectionProps) {
           )}
         </TitleWrapper>
         {hasEmptyState ? (
-          <Court>
-            <EmptyCourtImage
-              src="assets/sports-equipment-backpack.webp"
-              alt="Mochila com equipamentos de esporte"
-            />
-          </Court>
+          <EmptyCourt />
         ) : (
-          fullCourts.map((court) => (
-            <Court key={court[0].id}>
-              {court.map((player) => (
-                <Typography key={player.id}>{player.name}</Typography>
-              ))}
-            </Court>
-          ))
+          fullCourts.map((court) => <Court key={court[0].id} court={court} />)
         )}
       </Content>
     </Card>
