@@ -5,16 +5,12 @@ import { Input } from '@shared/components/Input';
 
 import { Container, Form, InputsWrapper, Title } from './styles';
 import { GenderSelector } from './components/GenderSelector';
-import { Athlete } from '@shared/types';
 import { nanoid } from 'nanoid';
-
-type LoginProps = {
-  onSubmit: (athlete: Athlete) => void;
-};
+import { LoginProps, UserProvidedAthlete } from './types';
 
 function assertsFormDataIsAthlete(data: {
   [k: string]: FormDataEntryValue;
-}): asserts data is Athlete {
+}): asserts data is UserProvidedAthlete {
   if (
     !('name' in data) ||
     typeof data['name'] !== 'string' ||
