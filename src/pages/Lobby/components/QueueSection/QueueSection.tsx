@@ -9,10 +9,13 @@ import { Content, TitleWrapper } from './styles';
 import { QueueSectionProps } from './types';
 import { QueueDisclaimer } from './QueueDisclaimer';
 
-export function QueueSection({ players, nextGameDate }: QueueSectionProps) {
+export function QueueSection({
+  athletes = [],
+  nextGameDate,
+}: QueueSectionProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const hasEnoughPlayers = players.length >= 4;
+  const hasEnoughPlayers = athletes?.length >= 4;
 
   return (
     <Content>
@@ -26,7 +29,7 @@ export function QueueSection({ players, nextGameDate }: QueueSectionProps) {
         />
       </TitleWrapper>
 
-      <PlayersTable players={players} />
+      <PlayersTable athletes={athletes} />
 
       <Button
         label="Sair da fila"
