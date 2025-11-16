@@ -17,15 +17,24 @@ const socket = io(URL, { autoConnect: false });
 socket.connect();
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Pages>('lobby');
+  const [currentPage, setCurrentPage] = useState<Pages>('login');
   const [{ athletes, court, nextGameDate }, setLobby] = useState<LobbyType>({});
   const [nextGame, setNextGame] = useState<Athlete[] | undefined>(undefined);
+
+  // TODO - use login data to join lobby
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [login, setLogin] = useState<Athlete | undefined>(undefined);
 
   function handleNextGame(game: Athlete[]) {
     setNextGame(game);
     if (game.length) {
       setCurrentPage('your-turn');
     }
+  }
+
+  function navigateToQueuePreview(login: Athlete) {
+    setLogin(login);
+    setCurrentPage('queue-preview');
   }
 
   useEffect(() => {
@@ -40,7 +49,7 @@ function App() {
 
   switch (currentPage) {
     case 'login':
-      return <Login />;
+      return <Login onSubmit={navigateToQueuePreview} />;
     case 'lobby':
       return (
         <Lobby athletes={athletes} court={court} nextGameDate={nextGameDate} />
